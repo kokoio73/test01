@@ -5,9 +5,8 @@ class Stack[T]{
   var elems : List[T] = Nil
   def push(x : T) {elems = x :: elems}
   def top : T = elems.head
-  def pop  { elems = elems.tail}
+  def pop()  { elems = elems.tail}
 }
-
 object hello_world extends App{
   var st = new Stack[Int]
   st.push(10)
