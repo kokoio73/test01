@@ -7,6 +7,7 @@ class Stack[T]{
   def top : T = elems.head
   def pop()  { elems = elems.tail}
 }
+println("fd")
 object hello_world extends App{
   var st = new Stack[Int]
   st.push(10)
