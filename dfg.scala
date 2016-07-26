@@ -1,12 +1,31 @@
+import scala.collection.mutable
+
 /**
-  * Created by Administrator on 2016-07-22.
+  * Created by lg on 2016-07-23.
   */
-object dfg {
-  def oncePerSecond(callback: () => Unit) {
-    while (true) { callback(); Thread sleep 1000 }
+object dfg{
+  abstract class AbsIterator {
+    type T
+
+    def hasNext: Boolean
+
+    def next: T
   }
-  def main(args: Array[String]) {
-    oncePerSecond(() =>
-      println("time flies like an arrow..."))
+  trait RichIterator extends AbsIterator{
+    def foreach(f : T=>Unit): Unit ={
+      while(hasNext)
+        f(next)
+    }
+  }
+  class StringIteraotr(s : String) extends AbsIterator{
+    type T = Char
+    private var i = 0
+    def hasNext = i < s.length
+    def next = { val ch  = s charAt i; i += 1; ch}
+  }
+  def main(args:Array[String]): Unit ={
+    class Iter extends StringIteraotr(args(0)) with RichIterator
+    val iter = new Iter
+    iter foreach println
   }
 }
