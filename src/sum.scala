@@ -2,30 +2,25 @@
   * Created by Ku on 2016-07-22.
   */
 object sum extends App{
-  case class ListNode[+T](h : T, t : ListNode[T]){
-    def head : T = h
-    def tail : ListNode[T] = t
-    def prepend[U >: T](elem : U) : ListNode[U] =
-      ListNode(elem, this)
-    def next: ListNode[T] = {
-     tail
-    }
+  trait Buffer{
+    type T
+    val element : T
   }
-  def loop(body : =>Unit): Unit = {
-    try {
-      while (true) {
-        body
-      }
-    }catch{
-      case a : NullPointerException =>
-    }
+  abstract class SeqBuffer extends Buffer{
+    type U
+    type T <: Seq[U]
+    def length = element.length
   }
-  var empty : ListNode[Null] = ListNode(null, null)
-  var strList : ListNode[String] = empty.prepend("hello").prepend("world")
-  var anyList : ListNode[Any] = strList.prepend(12345)
 
-  loop{
-    println(anyList.head)
-    anyList = anyList next
+  abstract class IntSeqBuffer extends SeqBuffer{
+    type U = Int
   }
+  def newIntSeqBuf(elem1 : Int, elem2 : Int) : IntSeqBuffer = new IntSeqBuffer{
+    type T = List[U]
+    val element = List(elem1, elem2)
+  }
+var shot : Short = 4231
+  val buf = newIntSeqBuf(shot, 'a')
+  println(buf.element)
 }
+
