@@ -3,6 +3,6 @@
   */
 class qazxswe {
   def main(args: Array[String]): Unit = {
-    println("asd")
+    println("완수에게")
   }
 }
